@@ -1,21 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Image} from "react-native";
-import {PokemonProps} from "./types";
+import {PokemonProps, useAppNavigation} from "./types";
 import {api, Pokemon} from "../Api/Api";
+import {useAppDispatch, useAppSelector} from "../Store/Store";
+import {cleanCurrentPokemon, getCurrentPokemon} from "../Store/rootReducer";
 
 export const Details = ({route}: PokemonProps) => {
-    const [data, setData] = useState<Pokemon>({} as Pokemon)
+    const navigation = useAppNavigation()
+    const dispatch = useAppDispatch()
+    const currentPokemon = useAppSelector(state => state.root.currentPokemon)
+
     useEffect(() => {
-        api.getPokemonById(route.params.url)
-            .then(res => {
-                setData(res.data)
-            })
-        return () => {
-            console.log('clear')
-            setData({}as Pokemon)
-        }
+       dispatch(getCurrentPokemon(route.params.url))
+       return () => {
+        dispatch(cleanCurrentPokemon())
+       }
     }, [])
-    if (!Object.keys(data).length) {
+    if (!Object.keys(currentPokemon).length) {
         return <View>
             <Text>LOADING...</Text>
         </View>
@@ -23,11 +24,11 @@ export const Details = ({route}: PokemonProps) => {
     return (
         <View>
             <Text>Details</Text>
-            <Text>{data && data.name}</Text>
+            <Text>{currentPokemon.name}</Text>
             {
-                data && <Image
+                currentPokemon && <Image
                     style={{width: 200, height: 200}}
-                    source={{uri: data.sprites.other['official-artwork'].front_default}}/>
+                    source={{uri: currentPokemon.sprites.other['official-artwork'].front_default}}/>
             }
         </View>
     );

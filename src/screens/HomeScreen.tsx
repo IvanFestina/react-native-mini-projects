@@ -3,23 +3,24 @@ import React, {useEffect, useState} from "react";
 import {api, PokemonItem} from "../Api/Api";
 import {GAP, PADDING, WIDTH} from "../const";
 import {useAppNavigation} from "./types";
+import {useAppDispatch, useAppSelector} from "../Store/Store";
+import {getAllPokemon} from "../Store/rootReducer";
 
 
 export const HomeScreen = () => {
     const navigation = useAppNavigation()
-    const [data, setData] = useState<Array<PokemonItem>>([])
+    const dispatch = useAppDispatch()
+    const allPokemon = useAppSelector(state => state.root.allPokemon)
 
     useEffect(() => {
-        api.getAll().then((response) => {
-            setData(response.data.results)
-        })
+        dispatch(getAllPokemon())
     }, [])
 
     return (
         <View>
             <Text>Home Screen</Text>
             <FlatList
-                data={data}
+                data={allPokemon}
                 numColumns={2}
                 contentContainerStyle={{paddingHorizontal: PADDING}}
                 columnWrapperStyle={{justifyContent: 'space-between'}}

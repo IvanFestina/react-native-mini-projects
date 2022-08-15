@@ -1,20 +1,14 @@
-import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, Text, View} from 'react-native';
 import Main from "./src/screens/Main";
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from "react-redux";
+import {store} from "./src/Store/Store";
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Main/>
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Main/>
+            </NavigationContainer>
+        </Provider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-
-    },
-});
