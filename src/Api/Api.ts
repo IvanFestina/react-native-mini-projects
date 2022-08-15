@@ -9,6 +9,9 @@ const instance = axios.create({
 export const api = {
     getAll() {
         return instance.get<{results: Array<PokemonItem>}>('pokemon')
+    },
+    getPokemonById(url: string) {
+        return instance.get<Pokemon>(url.replace(BASE_URL, ''))
     }
 }
 

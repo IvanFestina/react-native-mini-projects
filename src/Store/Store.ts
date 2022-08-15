@@ -1,9 +1,10 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import thunkMiddleware from 'redux-thunk'
+import {root} from "./rootReducer";
 
 export const rootReducer = combineReducers({
-
+    root,
 })
 export const store = configureStore({
     reducer: rootReducer,

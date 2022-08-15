@@ -1,17 +1,13 @@
-import {Dimensions, FlatList, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {api, PokemonItem} from "../Api/Api";
+import {GAP, PADDING, WIDTH} from "../const";
+import {useAppNavigation} from "./types";
 
-const {width, height} = Dimensions.get('screen')
-const WIDTH = width
-const HEIGHT = height
-const PADDING = 30
-const GAP = 5
 
 export const HomeScreen = () => {
-
+    const navigation = useAppNavigation()
     const [data, setData] = useState<Array<PokemonItem>>([])
-
 
     useEffect(() => {
         api.getAll().then((response) => {
@@ -29,13 +25,17 @@ export const HomeScreen = () => {
                 columnWrapperStyle={{justifyContent: 'space-between'}}
                 renderItem={({item}) => {
                     return <TouchableOpacity
+                        onPress={() => navigation.navigate('Details', {url: item.url})}
                         activeOpacity={0.7}
                         style={{
+                            alignItems: "center",
                             backgroundColor: '#ceb0b0',
                             paddingHorizontal: 10,
                             paddingVertical: 6,
                             marginVertical: GAP,
-                            width: (WIDTH - (PADDING * 2)) / 2 - GAP
+                            width: (WIDTH - (PADDING * 2)) / 2 - GAP,
+                            borderRadius: 5,
+                            borderWidth: 1,
                         }}
                     >
                         <Text style={{fontSize: 18, fontWeight: '500'}}>{item.name}</Text>
