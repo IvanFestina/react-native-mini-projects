@@ -7,7 +7,7 @@ const instance = axios.create({
 })
 
 export const api = {
-    getAll() {
+    getAllPokemon() {
         return instance.get<{results: Array<PokemonItem>}>('pokemon')
     },
     getPokemonById(url: string) {

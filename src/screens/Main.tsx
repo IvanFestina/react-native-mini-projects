@@ -6,15 +6,16 @@ import {RootStackParamList} from "./types";
 import {Details} from "./Details";
 
 const Main = () => {
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
+    const Stack = createNativeStackNavigator<RootStackParamList>();
 
 
     return (
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={Details} />
-      </Stack.Navigator>
+        <View style={{flex: 1}}>
+            <Stack.Navigator>
+                <Stack.Screen name="Home" component={HomeScreen}/>
+                <Stack.Screen name="Details" component={Details}/>
+            </Stack.Navigator>
+        </View>
     );
 };
 

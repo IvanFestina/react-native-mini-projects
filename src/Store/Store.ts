@@ -1,6 +1,5 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import thunkMiddleware from 'redux-thunk'
 import {root} from "./rootReducer";
 
 export const rootReducer = combineReducers({
@@ -8,7 +7,6 @@ export const rootReducer = combineReducers({
 })
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
 })
 
 export type AppDispatch = typeof store.dispatch
